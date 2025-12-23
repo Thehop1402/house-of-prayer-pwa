@@ -113,6 +113,28 @@ OneSignal.push(function() {
   <ul id="serviceList"></ul>
 
 </div>
+  
+<hr />
+
+<h2>🤝 Volunteer Schedules</h2>
+
+<!-- ADMIN CONTROLS -->
+<div class="admin-only">
+  <h3>Cleaning Schedule</h3>
+  <textarea id="cleaningInput" placeholder="Enter cleaning schedule"></textarea>
+  <button type="button" onclick="saveCleaning()">Save Cleaning Schedule</button>
+
+  <h3>Usher Schedule</h3>
+  <textarea id="usherInput" placeholder="Enter usher schedule"></textarea>
+  <button type="button" onclick="saveUsher()">Save Usher Schedule</button>
+</div>
+
+<!-- USER VIEW -->
+<h3>🧹 Cleaning</h3>
+<p id="cleaningDisplay">No schedule posted.</p>
+
+<h3>🚪 Ushers</h3>
+<p id="usherDisplay">No schedule posted.</p>
 
   <nav>
     <button onclick="showTab('home')">🏠</button>
