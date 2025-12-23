@@ -49,6 +49,8 @@ window.onload = () => {
 };
 
 function addService() {
+  console.log("addService fired");
+
   const input = document.getElementById("serviceInput");
   const text = input.value.trim();
 
