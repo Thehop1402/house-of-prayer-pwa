@@ -96,6 +96,17 @@ OneSignal.push(function() {
   <h3>🛠 Admin Panel</h3>
   <p>This section is visible to admins only.</p>
 </div>
+  
+<h2>📅 Service Times</h2>
+
+<!-- Admin-only form -->
+<div class="admin-only">
+  <input type="text" id="serviceInput" placeholder="e.g. Sunday Worship – 10:30 AM" />
+  <button onclick="addService()">Add Service</button>
+</div>
+
+<!-- Everyone sees this -->
+<ul id="serviceList"></ul>
 
   <!-- your existing app content stays here -->
 </div>
