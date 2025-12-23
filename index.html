@@ -86,29 +86,31 @@ OneSignal.push(function() {
   <button onclick="login()">Continue</button>
 </div>
 
-<div id="app-screen" style="display:none;">
-  
-  <button onclick="logout()" style="float:right; margin:10px;">
-  Logout
-</button>
-  
+<div id="app-screen" style="display:none; padding:20px;">
+
+  <!-- Logout -->
+  <button onclick="logout()" style="float:right;">Logout</button>
+
+  <!-- Admin Panel -->
   <div class="admin-only">
-  <h3>🛠 Admin Panel</h3>
-  <p>This section is visible to admins only.</p>
-</div>
-  
-<h2>📅 Service Times</h2>
+    <h3>🛠 Admin Panel</h3>
+    <p>Admins can manage service times.</p>
+  </div>
 
-<!-- Admin-only form -->
-<div class="admin-only">
-  <input type="text" id="serviceInput" placeholder="e.g. Sunday Worship – 10:30 AM" />
-  <button onclick="addService()">Add Service</button>
-</div>
+  <!-- SERVICE TIMES (THIS GOES AFTER ADMIN PANEL) -->
+  <h2>📅 Service Times</h2>
 
-<!-- Everyone sees this -->
-<ul id="serviceList"></ul>
+  <div class="admin-only">
+    <input
+      type="text"
+      id="serviceInput"
+      placeholder="e.g. Sunday Worship – 10:30 AM"
+    />
+    <button onclick="addService()">Add Service</button>
+  </div>
 
-  <!-- your existing app content stays here -->
+  <ul id="serviceList"></ul>
+
 </div>
 
   <nav>
