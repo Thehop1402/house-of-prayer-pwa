@@ -43,9 +43,10 @@ function logout() {
   location.reload();
 }
 
-window.onload = () => {
+window.onload = function () {
   loadUser();
   renderServices();
+  renderVolunteerSchedules();
 };
 
 function addService() {
