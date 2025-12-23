@@ -78,3 +78,25 @@ function renderServices() {
     list.appendChild(li);
   });
 }
+function saveCleaning() {
+  const text = document.getElementById("cleaningInput").value.trim();
+  localStorage.setItem("cleaningSchedule", text);
+  renderVolunteerSchedules();
+}
+
+function saveUsher() {
+  const text = document.getElementById("usherInput").value.trim();
+  localStorage.setItem("usherSchedule", text);
+  renderVolunteerSchedules();
+}
+
+function renderVolunteerSchedules() {
+  const cleaning = localStorage.getItem("cleaningSchedule");
+  const usher = localStorage.getItem("usherSchedule");
+
+  document.getElementById("cleaningDisplay").textContent =
+    cleaning || "No schedule posted.";
+
+  document.getElementById("usherDisplay").textContent =
+    usher || "No schedule posted.";
+}
