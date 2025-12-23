@@ -43,4 +43,36 @@ function logout() {
   location.reload();
 }
 
-window.onload = loadUser;
+window.onload = () => {
+  loadUser();
+  renderServices();
+};
+
+function addService() {
+  const input = document.getElementById("serviceInput");
+  const text = input.value.trim();
+
+  if (!text) {
+    alert("Enter a service time");
+    return;
+  }
+
+  const services = JSON.parse(localStorage.getItem("services")) || [];
+  services.push(text);
+  localStorage.setItem("services", JSON.stringify(services));
+
+  input.value = "";
+  renderServices();
+}
+
+function renderServices() {
+  const list = document.getElementById("serviceList");
+  list.innerHTML = "";
+
+  const services = JSON.parse(localStorage.getItem("services")) || [];
+  services.forEach(service => {
+    const li = document.createElement("li");
+    li.textContent = service;
+    list.appendChild(li);
+  });
+}
