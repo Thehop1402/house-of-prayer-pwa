@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>House of Prayer</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+
+  <meta name="theme-color" content="#ff2f92">
+</head>
+<body>
+
+  <header>
+    <h1>🏠 House of Prayer</h1>
+  </header>
+
+  <main id="app">
+    <section id="home" class="tab active">
+      <h2>Welcome</h2>
+      <p>Service times, announcements, and updates.</p>
+    </section>
+
+    <section id="messages" class="tab">
+      <h2>💬 Messages</h2>
+      <p>Messaging coming soon.</p>
+    </section>
+
+    <section id="volunteers" class="tab">
+      <h2>🗓️ Volunteers</h2>
+      <p>Schedules and availability coming soon.</p>
+    </section>
+
+    <section id="bible" class="tab">
+      <h2>📖 Bible</h2>
+      <p>Bible reader coming soon.</p>
+    </section>
+
+    <section id="give" class="tab">
+      <h2>💖 Give</h2>
+      <p>QR Giving coming soon.</p>
+    </section>
+
+    <section id="profile" class="tab">
+      <h2>👤 Profile</h2>
+      <p>User profile coming soon.</p>
+    </section>
+  </main>
+
+  <nav>
+    <button onclick="showTab('home')">🏠</button>
+    <button onclick="showTab('messages')">💬</button>
+    <button onclick="showTab('volunteers')">🗓️</button>
+    <button onclick="showTab('bible')">📖</button>
+    <button onclick="showTab('give')">💖</button>
+    <button onclick="showTab('profile')">👤</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
