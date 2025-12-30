@@ -91,22 +91,26 @@ OneSignal.push(function() {
 
   <!-- MESSAGES -->
   <div id="messages-tab" class="tab" style="display:none;">
-    <h2>💬 Messages</h2>
+  <h2>💬 Messages</h2>
 
-    <div class="admin-only">
-      <input id="groupName" placeholder="Group name" />
-      <button onclick="createGroup()">Create Group</button>
-    </div>
+  <p>Select a group to start messaging.</p>
 
-    <ul id="groupList"></ul>
-
-    <div id="chatSection" style="display:none;">
-      <h3 id="chatTitle"></h3>
-      <div id="chatMessages"></div>
-      <input id="chatInput" />
-      <button onclick="sendMessage()">Send</button>
-    </div>
+  <div class="admin-only">
+    <h3>🛠 Admin: Create Group</h3>
+    <input id="groupName" placeholder="Group name" />
+    <button onclick="createGroup()">Create Group</button>
   </div>
+
+  <h3>👥 Groups</h3>
+  <ul id="groupList"></ul>
+
+  <div id="chatSection" style="display:none; margin-top:10px;">
+    <h3 id="chatTitle"></h3>
+    <div id="chatMessages" style="border:1px solid #ccc; min-height:150px; padding:10px;"></div>
+    <input id="chatInput" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
 
   <!-- VOLUNTEERS -->
   <div id="volunteer-tab" class="tab" style="display:none;">
