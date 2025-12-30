@@ -80,3 +80,7 @@ nav button:hover {
   align-items: center;
   margin-bottom: 8px;
 }
+#calendar {
+  min-height: 200px;
+  background: #f9f9f9;
+}
