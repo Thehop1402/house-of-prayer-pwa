@@ -80,12 +80,14 @@ function renderServices() {
   });
 }
 function saveCleaning() {
+  console.log("saveCleaning fired");
   const text = document.getElementById("cleaningInput").value.trim();
   localStorage.setItem("cleaningSchedule", text);
   renderVolunteerSchedules();
 }
 
 function saveUsher() {
+  console.log("saveUsher fired");
   const text = document.getElementById("usherInput").value.trim();
   localStorage.setItem("usherSchedule", text);
   renderVolunteerSchedules();
