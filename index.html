@@ -146,29 +146,24 @@ OneSignal.push(function() {
 
 <h3>📆 Volunteer Availability</h3>
 
-<!-- MEMBER AVAILABILITY -->
-<div id="availability-section">
-  <p>Select the days you are available:</p>
-
-  <label><input type="checkbox" value="Sunday" /> Sunday</label><br />
-  <label><input type="checkbox" value="Monday" /> Monday</label><br />
-  <label><input type="checkbox" value="Tuesday" /> Tuesday</label><br />
-  <label><input type="checkbox" value="Wednesday" /> Wednesday</label><br />
-  <label><input type="checkbox" value="Thursday" /> Thursday</label><br />
-  <label><input type="checkbox" value="Friday" /> Friday</label><br />
-  <label><input type="checkbox" value="Saturday" /> Saturday</label><br /><br />
-
-  <button onclick="saveAvailability()">Save Availability</button>
-
-  <p><strong>Your Availability:</strong></p>
-  <div id="myAvailability"></div>
+<div id="calendar-controls">
+  <button onclick="prevMonth()">◀</button>
+  <span id="monthLabel"></span>
+  <button onclick="nextMonth()">▶</button>
 </div>
+
+<div id="calendar"></div>
+
+<button onclick="saveCalendarAvailability()">Save Availability</button>
+
+<p><strong>Your Selected Dates:</strong></p>
+<div id="myCalendarAvailability"></div>
 
 <!-- ADMIN VIEW -->
 <div class="admin-only">
   <hr />
-  <h3>🛠 Admin: Volunteer Availability List</h3>
-  <div id="allAvailability"></div>
+  <h3>🛠 Admin: Volunteer Availability</h3>
+  <div id="allCalendarAvailability"></div>
 </div>
 
   <nav>
