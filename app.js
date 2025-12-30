@@ -52,6 +52,7 @@ renderVolunteerSchedules();
 renderCalendar();
 renderCalendarSummary();
 renderAdminCalendar();
+  renderProfile();
 }
 
 function logout() {
@@ -284,3 +285,12 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCalendar();
   }
 });
+  
+function renderProfile() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return;
+
+  document.getElementById("profileName").innerText = user.name;
+  document.getElementById("profileEmail").innerText = user.email;
+  document.getElementById("profileRole").innerText = user.role;
+}
