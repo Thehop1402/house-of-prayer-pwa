@@ -7,6 +7,8 @@ function showTab(tabId) {
     renderCalendarSummary();
     renderAdminCalendar();
   }
+if (tabId === "messages-tab") {
+  renderGroups();
 }
 
 // PWA install support
