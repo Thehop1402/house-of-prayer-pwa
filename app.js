@@ -163,15 +163,13 @@ function renderAvailability() {
 let currentMonth = new Date();
 
 function renderCalendar() {
-  console.log("renderCalender fired");
-  
+  console.log("renderCalendar fired");
+
   const calendar = document.getElementById("calendar");
   const label = document.getElementById("monthLabel");
-  
-  if (!calendar || !label) {
-    console.error("Calendar elements not found");
-    return;
-  }
+
+  if (!calendar || !label) return;
+
   calendar.innerHTML = "";
 
   const year = currentMonth.getFullYear();
@@ -182,6 +180,16 @@ function renderCalendar() {
     year: "numeric"
   });
 
+  // Weekday headers
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  weekdays.forEach(day => {
+    const h = document.createElement("div");
+    h.innerText = day;
+    h.style.fontWeight = "bold";
+    h.style.textAlign = "center";
+    calendar.appendChild(h);
+  });
+
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -189,15 +197,16 @@ function renderCalendar() {
   const data = JSON.parse(localStorage.getItem("calendarAvailability")) || {};
   const selected = user && data[user.email] ? data[user.email] : [];
 
-  // Empty slots
+  // Empty cells before first day
   for (let i = 0; i < firstDay; i++) {
     calendar.appendChild(document.createElement("div"));
   }
 
-  // Days
+  // Calendar days
   for (let d = 1; d <= daysInMonth; d++) {
     const dateKey = `${year}-${month + 1}-${d}`;
     const div = document.createElement("div");
+
     div.className = "calendar-day";
     div.innerText = d;
 
