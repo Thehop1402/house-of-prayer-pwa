@@ -154,3 +154,104 @@ function renderAvailability() {
     allDiv.appendChild(p);
   });
 }
+
+let currentMonth = new Date();
+
+function renderCalendar() {
+  const calendar = document.getElementById("calendar");
+  const label = document.getElementById("monthLabel");
+  calendar.innerHTML = "";
+
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+
+  label.innerText = currentMonth.toLocaleString("default", {
+    month: "long",
+    year: "numeric"
+  });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const data = JSON.parse(localStorage.getItem("calendarAvailability")) || {};
+  const selected = user && data[user.email] ? data[user.email] : [];
+
+  // Empty slots
+  for (let i = 0; i < firstDay; i++) {
+    calendar.appendChild(document.createElement("div"));
+  }
+
+  // Days
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateKey = `${year}-${month + 1}-${d}`;
+    const div = document.createElement("div");
+    div.className = "calendar-day";
+    div.innerText = d;
+
+    if (selected.includes(dateKey)) {
+      div.classList.add("available");
+    }
+
+    div.onclick = () => toggleDate(dateKey, div);
+    calendar.appendChild(div);
+  }
+}
+
+function toggleDate(dateKey, el) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return;
+
+  let data = JSON.parse(localStorage.getItem("calendarAvailability")) || {};
+  let dates = data[user.email] || [];
+
+  if (dates.includes(dateKey)) {
+    dates = dates.filter(d => d !== dateKey);
+    el.classList.remove("available");
+  } else {
+    dates.push(dateKey);
+    el.classList.add("available");
+  }
+
+  data[user.email] = dates;
+  localStorage.setItem("calendarAvailability", JSON.stringify(data));
+  renderCalendarSummary();
+}
+
+function saveCalendarAvailability() {
+  renderCalendarSummary();
+  renderAdminCalendar();
+}
+
+function renderCalendarSummary() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const data = JSON.parse(localStorage.getItem("calendarAvailability")) || {};
+  const dates = data[user.email] || [];
+
+  document.getElementById("myCalendarAvailability").innerText =
+    dates.length ? dates.join(", ") : "No dates selected";
+}
+
+function renderAdminCalendar() {
+  const container = document.getElementById("allCalendarAvailability");
+  if (!container) return;
+
+  const data = JSON.parse(localStorage.getItem("calendarAvailability")) || {};
+  container.innerHTML = "";
+
+  Object.entries(data).forEach(([email, dates]) => {
+    const p = document.createElement("p");
+    p.innerText = `${email}: ${dates.join(", ")}`;
+    container.appendChild(p);
+  });
+}
+
+function prevMonth() {
+  currentMonth.setMonth(currentMonth.getMonth() - 1);
+  renderCalendar();
+}
+
+function nextMonth() {
+  currentMonth.setMonth(currentMonth.getMonth() + 1);
+  renderCalendar();
+}
