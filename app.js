@@ -43,9 +43,8 @@ function loadUser() {
   }
 
   // 🔑 ALWAYS render shared content
- renderVolunteerSchedules();
-renderAvailability();
-  renderCalendar();
+renderVolunteerSchedules();
+renderCalendar();
 renderCalendarSummary();
 renderAdminCalendar();
 }
@@ -161,8 +160,15 @@ function renderAvailability() {
 let currentMonth = new Date();
 
 function renderCalendar() {
+  console.log("renderCalender fired");
+  
   const calendar = document.getElementById("calendar");
   const label = document.getElementById("monthLabel");
+  
+  if (!calendar || !label) {
+    console.error("Calendar elements not found");
+    return;
+  }
   calendar.innerHTML = "";
 
   const year = currentMonth.getFullYear();
@@ -258,3 +264,9 @@ function nextMonth() {
   currentMonth.setMonth(currentMonth.getMonth() + 1);
   renderCalendar();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("user")) {
+    renderCalendar();
+  }
+});
