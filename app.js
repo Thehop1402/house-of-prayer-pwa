@@ -43,7 +43,8 @@ function loadUser() {
   }
 
   // 🔑 ALWAYS render shared content
-  renderVolunteerSchedules();
+ renderVolunteerSchedules();
+renderAvailability();
 }
 
 function logout() {
