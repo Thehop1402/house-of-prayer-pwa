@@ -37,46 +37,16 @@ OneSignal.push(function() {
 </head>
 <body>
 
-  <header>
-    <h1>🏠 House of Prayer</h1>
-  </header>
+<header>
+  <h1>🏠 House of Prayer</h1>
+</header>
 
-  <main id="app">
-    <section id="home" class="tab active">
-      <h2>Welcome</h2>
-      <p>Service times, announcements, and updates.</p>
-    </section>
-
-    <section id="messages" class="tab">
-      <h2>💬 Messages</h2>
-      <p>Messaging coming soon.</p>
-    </section>
-
-    <section id="volunteers" class="tab">
-      <h2>🗓️ Volunteers</h2>
-      <p>Schedules and availability coming soon.</p>
-    </section>
-
-    <section id="bible" class="tab">
-      <h2>📖 Bible</h2>
-      <p>Bible reader coming soon.</p>
-    </section>
-
-    <section id="give" class="tab">
-      <h2>💖 Give</h2>
-      <p>QR Giving coming soon.</p>
-    </section>
-
-    <section id="profile" class="tab">
-      <h2>👤 Profile</h2>
-      <p>User profile coming soon.</p>
-    </section>
-  </main>
+<!-- AUTH SCREEN -->
 <div id="auth-screen">
   <h2>Welcome</h2>
 
-  <input type="text" id="name" placeholder="Full Name" />
-  <input type="email" id="email" placeholder="Email" />
+  <input id="name" placeholder="Full Name" />
+  <input id="email" placeholder="Email" />
 
   <select id="role">
     <option value="member">Member</option>
@@ -86,95 +56,117 @@ OneSignal.push(function() {
   <button onclick="login()">Continue</button>
 </div>
 
+<!-- APP SCREEN -->
 <div id="app-screen" style="display:none; padding:20px;">
 
-  <!-- Logout -->
   <button onclick="logout()" style="float:right;">Logout</button>
 
-  <!-- Admin Panel -->
-  <div class="admin-only">
-    <h3>🛠 Admin Panel</h3>
-    <p>Admins can manage service times.</p>
-  </div>
-
-  <!-- SERVICE TIMES (THIS GOES AFTER ADMIN PANEL) -->
-  <h2>📅 Service Times</h2>
-
-  <div class="admin-only">
-    <input
-      type="text"
-      id="serviceInput"
-      placeholder="e.g. Sunday Worship – 10:30 AM"
-    />
-    <button type="button" onclick="addService()">Add Service</button>
-
-  </div>
-
-  <ul id="serviceList"></ul>
-
-</div>
-  
-<hr />
-
-<h2>🤝 Volunteer Schedules</h2>
-
-<!-- ADMIN CONTROLS -->
-<div class="admin-only">
-  <h3>🛠 Admin: Manage Volunteer Schedules</h3>
-
-  <h4>🧹 Cleaning Schedule</h4>
-  <textarea id="cleaningInput" placeholder="Enter cleaning schedule"></textarea>
-  <button onclick="saveCleaning()">Save Cleaning</button>
-
-  <h4>🛎 Usher Schedule</h4>
-  <textarea id="usherInput" placeholder="Enter usher schedule"></textarea>
-  <button onclick="saveUsher()">Save Usher</button>
-</div>
-
-<hr />
-
-<!-- MEMBER VIEW (EVERYONE SEES THIS) -->
-<h3>📅 Volunteer Schedules</h3>
-
-<h4>🧹 Cleaning</h4>
-<div id="cleaningDisplay"></div>
-
-<h4>🛎 Usher</h4>
-<div id="usherDisplay"></div>
-
-  <hr />
-
-<h3>📆 Volunteer Availability</h3>
-
-<div id="calendar-controls">
-  <button onclick="prevMonth()">◀</button>
-  <span id="monthLabel"></span>
-  <button onclick="nextMonth()">▶</button>
-</div>
-
-<div id="calendar"></div>
-
-<button onclick="saveCalendarAvailability()">Save Availability</button>
-
-<p><strong>Your Selected Dates:</strong></p>
-<div id="myCalendarAvailability"></div>
-
-<!-- ADMIN VIEW -->
-<div class="admin-only">
-  <hr />
-  <h3>🛠 Admin: Volunteer Availability</h3>
-  <div id="allCalendarAvailability"></div>
-</div>
-
+  <!-- NAV -->
   <nav>
-    <button onclick="showTab('home')">🏠</button>
-    <button onclick="showTab('messages')">💬</button>
-    <button onclick="showTab('volunteers')">🗓️</button>
-    <button onclick="showTab('bible')">📖</button>
-    <button onclick="showTab('give')">💖</button>
-    <button onclick="showTab('profile')">👤</button>
+    <button onclick="showTab('home-tab')">🏠</button>
+    <button onclick="showTab('messages-tab')">💬</button>
+    <button onclick="showTab('volunteer-tab')">🗓️</button>
+    <button onclick="showTab('bible-tab')">📖</button>
+    <button onclick="showTab('give-tab')">💖</button>
+    <button onclick="showTab('profile-tab')">👤</button>
   </nav>
 
-  <script src="app.js"></script>
+  <!-- HOME -->
+  <div id="home-tab" class="tab">
+    <h2>Welcome</h2>
+
+    <div class="admin-only">
+      <h3>🛠 Admin Panel</h3>
+    </div>
+
+    <h3>📅 Service Times</h3>
+
+    <div class="admin-only">
+      <input id="serviceInput" placeholder="Sunday Worship – 10:30 AM" />
+      <button onclick="addService()">Add Service</button>
+    </div>
+
+    <ul id="serviceList"></ul>
+  </div>
+
+  <!-- MESSAGES -->
+  <div id="messages-tab" class="tab" style="display:none;">
+    <h2>💬 Messages</h2>
+
+    <div class="admin-only">
+      <input id="groupName" placeholder="Group name" />
+      <button onclick="createGroup()">Create Group</button>
+    </div>
+
+    <ul id="groupList"></ul>
+
+    <div id="chatSection" style="display:none;">
+      <h3 id="chatTitle"></h3>
+      <div id="chatMessages"></div>
+      <input id="chatInput" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- VOLUNTEERS -->
+  <div id="volunteer-tab" class="tab" style="display:none;">
+    <h2>🤝 Volunteers</h2>
+
+    <div class="admin-only">
+      <h4>🧹 Cleaning</h4>
+      <textarea id="cleaningInput"></textarea>
+      <button onclick="saveCleaning()">Save</button>
+
+      <h4>🛎 Usher</h4>
+      <textarea id="usherInput"></textarea>
+      <button onclick="saveUsher()">Save</button>
+    </div>
+
+    <h4>🧹 Cleaning Schedule</h4>
+    <div id="cleaningDisplay"></div>
+
+    <h4>🛎 Usher Schedule</h4>
+    <div id="usherDisplay"></div>
+
+    <hr />
+
+    <h3>📆 Availability</h3>
+
+    <div id="calendar-controls">
+      <button onclick="prevMonth()">◀</button>
+      <span id="monthLabel"></span>
+      <button onclick="nextMonth()">▶</button>
+    </div>
+
+    <div id="calendar"></div>
+
+    <button onclick="saveCalendarAvailability()">Save Availability</button>
+    <div id="myCalendarAvailability"></div>
+
+    <div class="admin-only">
+      <h3>Admin View</h3>
+      <div id="allCalendarAvailability"></div>
+    </div>
+  </div>
+
+  <!-- BIBLE -->
+  <div id="bible-tab" class="tab" style="display:none;">
+    <h2>📖 Bible</h2>
+    <p>Coming next</p>
+  </div>
+
+  <!-- GIVE -->
+  <div id="give-tab" class="tab" style="display:none;">
+    <h2>💖 Give</h2>
+    <p>QR giving</p>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="profile-tab" class="tab" style="display:none;">
+    <h2>👤 Profile</h2>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
 </body>
-</html>
