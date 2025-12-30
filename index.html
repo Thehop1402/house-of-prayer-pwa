@@ -167,9 +167,15 @@ OneSignal.push(function() {
 
   <!-- PROFILE -->
   <div id="profile-tab" class="tab" style="display:none;">
-    <h2>👤 Profile</h2>
-  </div>
+  <h2>👤 Profile</h2>
 
+  <p><strong>Name:</strong> <span id="profileName"></span></p>
+  <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+  <p><strong>Role:</strong> <span id="profileRole"></span></p>
+
+  <div class="admin-only">
+    <p>🛠 You are an admin.</p>
+  </div>
 </div>
 
 <script src="app.js"></script>
