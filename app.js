@@ -10,6 +10,7 @@ function showTab(tabId) {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
+
 function login() {
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
@@ -24,6 +25,7 @@ function login() {
   localStorage.setItem("user", JSON.stringify(user));
 
   loadUser();
+  renderVolunteerSchedules(); // 🔑 THIS WAS MISSING
 }
 
 function loadUser() {
@@ -94,12 +96,10 @@ function saveUsher() {
 }
 
 function renderVolunteerSchedules() {
-  const cleaning = localStorage.getItem("cleaningSchedule");
-  const usher = localStorage.getItem("usherSchedule");
+  const cleaning = localStorage.getItem("cleaningSchedule") || "No schedule posted";
+  const usher = localStorage.getItem("usherSchedule") || "No schedule posted";
 
-  document.getElementById("cleaningDisplay").textContent =
-    cleaning || "No schedule posted.";
-
-  document.getElementById("usherDisplay").textContent =
-    usher || "No schedule posted.";
+  document.getElementById("cleaningDisplay").innerText = cleaning;
+  document.getElementById("usherDisplay").innerText = usher;
 }
+
