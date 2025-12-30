@@ -110,3 +110,46 @@ function renderVolunteerSchedules() {
   document.getElementById("usherDisplay").innerText = usher;
 }
 
+function saveAvailability() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return;
+
+  const checked = document.querySelectorAll(
+    '#availability-section input[type="checkbox"]:checked'
+  );
+
+  const days = Array.from(checked).map(cb => cb.value);
+
+  let availability = JSON.parse(localStorage.getItem("availability")) || {};
+  availability[user.email] = {
+    name: user.name,
+    days
+  };
+
+  localStorage.setItem("availability", JSON.stringify(availability));
+
+  renderAvailability();
+}
+
+function renderAvailability() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const availability = JSON.parse(localStorage.getItem("availability")) || {};
+
+  // Member view
+  if (user && availability[user.email]) {
+    document.getElementById("myAvailability").innerText =
+      availability[user.email].days.join(", ") || "None selected";
+  }
+
+  // Admin view
+  const allDiv = document.getElementById("allAvailability");
+  if (!allDiv) return;
+
+  allDiv.innerHTML = "";
+
+  Object.values(availability).forEach(v => {
+    const p = document.createElement("p");
+    p.innerText = `${v.name}: ${v.days.join(", ")}`;
+    allDiv.appendChild(p);
+  });
+}
