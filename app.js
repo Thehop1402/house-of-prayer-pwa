@@ -35,9 +35,15 @@ function loadUser() {
   document.getElementById("auth-screen").style.display = "none";
   document.getElementById("app-screen").style.display = "block";
 
+  // Reset admin state first
+  document.body.classList.remove("admin");
+
   if (user.role === "admin") {
     document.body.classList.add("admin");
   }
+
+  // 🔑 ALWAYS render shared content
+  renderVolunteerSchedules();
 }
 
 function logout() {
