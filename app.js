@@ -1,9 +1,12 @@
 function showTab(tabId) {
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.classList.remove('active');
-  });
+  document.querySelectorAll(".tab").forEach(t => t.style.display = "none");
+  document.getElementById(tabId).style.display = "block";
 
-  document.getElementById(tabId).classList.add('active');
+  if (tabId === "volunteer-tab") {
+    renderCalendar();
+    renderCalendarSummary();
+    renderAdminCalendar();
+  }
 }
 
 // PWA install support
