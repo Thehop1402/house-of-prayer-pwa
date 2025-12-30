@@ -48,6 +48,7 @@ function loadUser() {
 
 function logout() {
   localStorage.removeItem("user");
+  document.body.classList.remove("admin");
   location.reload();
 }
 
