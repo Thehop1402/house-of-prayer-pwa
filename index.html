@@ -120,23 +120,27 @@ OneSignal.push(function() {
 
 <!-- ADMIN CONTROLS -->
 <div class="admin-only">
-  <h3>Cleaning Schedule</h3>
-  <textarea id="cleaningInput"></textarea>
-<p id="cleaningDisplay"></p>
-  <button type="button" onclick="saveCleaning()">Save Cleaning Schedule</button>
+  <h3>🛠 Admin: Manage Volunteer Schedules</h3>
 
-  <h3>Usher Schedule</h3>
- <textarea id="usherInput"></textarea>
-<p id="usherDisplay"></p>
-  <button type="button" onclick="saveUsher()">Save Usher Schedule</button>
+  <h4>🧹 Cleaning Schedule</h4>
+  <textarea id="cleaningInput" placeholder="Enter cleaning schedule"></textarea>
+  <button onclick="saveCleaning()">Save Cleaning</button>
+
+  <h4>🛎 Usher Schedule</h4>
+  <textarea id="usherInput" placeholder="Enter usher schedule"></textarea>
+  <button onclick="saveUsher()">Save Usher</button>
 </div>
 
-<!-- USER VIEW -->
-<h3>🧹 Cleaning</h3>
-<p id="cleaningDisplay">No schedule posted.</p>
+<hr />
 
-<h3>🚪 Ushers</h3>
-<p id="usherDisplay">No schedule posted.</p>
+<!-- MEMBER VIEW (EVERYONE SEES THIS) -->
+<h3>📅 Volunteer Schedules</h3>
+
+<h4>🧹 Cleaning</h4>
+<div id="cleaningDisplay"></div>
+
+<h4>🛎 Usher</h4>
+<div id="usherDisplay"></div>
 
   <nav>
     <button onclick="showTab('home')">🏠</button>
