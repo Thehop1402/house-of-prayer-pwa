@@ -45,6 +45,9 @@ function loadUser() {
   // 🔑 ALWAYS render shared content
  renderVolunteerSchedules();
 renderAvailability();
+  renderCalendar();
+renderCalendarSummary();
+renderAdminCalendar();
 }
 
 function logout() {
