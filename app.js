@@ -1,5 +1,10 @@
 alert("app.js loaded");
 
+// PWA install support
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+
 function showTab(tabId) {
   document.querySelectorAll(".tab").forEach(t => t.style.display = "none");
   document.getElementById(tabId).style.display = "block";
@@ -15,10 +20,6 @@ if (tabId === "messages-tab") {
 if (tabId === "media-tab") {
   // later we can load streams dynamically
 }
-
-// PWA install support
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
 }
 
 function login() {
