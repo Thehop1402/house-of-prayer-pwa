@@ -323,13 +323,19 @@ function createGroup() {
 
   const groups = getGroups();
   const user = JSON.parse(localStorage.getItem("user"));
+  const unread = getUnread();
 
   list.innerHTML = "";
 
   Object.keys(groups).forEach(group => {
+    const count = unread[user.email]?.[group] || 0;
+
     const li = document.createElement("li");
     li.innerHTML = `
-      <span onclick="openChat('${group}')">${group}</span>
+      <span onclick="openChat('${group}')">
+        ${group}
+        ${count > 0 ? `<strong style="color:red;"> 🔴 ${count}</strong>` : ""}
+      </span>
       ${
         user.role === "admin"
           ? `<button onclick="deleteGroup('${group}')">❌</button>`
@@ -353,9 +359,39 @@ let currentGroup = null;
 
 function openChat(group) {
   currentGroup = group;
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  let unread = getUnread();
+
+  if (unread[user.email]) {
+    delete unread[user.email][group];
+    saveUnread(unread);
+  }
+
   document.getElementById("chatSection").style.display = "block";
   document.getElementById("chatTitle").innerText = group;
+
   renderMessages();
+  renderGroups();
+}
+
+function getUnread() {
+  return JSON.parse(localStorage.getItem("unread")) || {};
+}
+
+function saveUnread(data) {
+  localStorage.setItem("unread", JSON.stringify(data));
+}
+
+function incrementUnread(group) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return;
+
+  let unread = getUnread();
+  unread[user.email] = unread[user.email] || {};
+  unread[user.email][group] = (unread[user.email][group] || 0) + 1;
+
+  saveUnread(unread);
 }
 
 function sendMessage() {
@@ -368,13 +404,26 @@ function sendMessage() {
 
   groups[currentGroup].push({
     user: user.name,
+    email: user.email,
     text,
     time: new Date().toLocaleTimeString()
   });
 
   saveGroups(groups);
   input.value = "";
+
+  // 🔴 increment unread for OTHER users
+  const unread = getUnread();
+  Object.keys(unread).forEach(email => {
+    if (email !== user.email) {
+      unread[email][currentGroup] =
+        (unread[email][currentGroup] || 0) + 1;
+    }
+  });
+  saveUnread(unread);
+
   renderMessages();
+  renderGroups();
 }
 
 function renderMessages() {
