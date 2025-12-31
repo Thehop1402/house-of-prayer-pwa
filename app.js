@@ -1,5 +1,3 @@
-alert("app.js loaded");
-
 // PWA install support
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
