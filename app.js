@@ -54,7 +54,8 @@ function loadUser() {
   renderCalendarSummary();
   renderAdminCalendar();
   renderProfile();
-
+showTab("home-tab");
+  
   console.log("Logged in as:", user);
 }
 
@@ -64,9 +65,9 @@ function logout() {
 }
 
 window.onload = function () {
-  loadUser();
-  renderServices();
-  renderVolunteerSchedules();
+  if (localStorage.getItem("user")) {
+    loadUser();
+  }
 };
 
 function addService() {
