@@ -22,21 +22,16 @@ if ('serviceWorker' in navigator) {
 }
 
 function login() {
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
   const role = document.getElementById("role").value;
 
   if (!name || !email) {
-    alert("Please enter name and email");
+    alert("Please enter your name and email");
     return;
   }
 
-  const user = {
-    name,
-    email,
-    role
-  };
-
+  const user = { name, email, role };
   localStorage.setItem("user", JSON.stringify(user));
   loadUser();
 }
@@ -45,20 +40,14 @@ function loadUser() {
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) return;
 
-  // hide login
   document.getElementById("auth-screen").style.display = "none";
-
-  // show app
   document.getElementById("app-screen").style.display = "block";
 
-  // apply admin role
   document.body.classList.remove("admin");
   if (user.role === "admin") {
     document.body.classList.add("admin");
   }
 
-  // render app content AFTER login
-  renderServices();
   renderVolunteerSchedules();
   renderCalendar();
   renderCalendarSummary();
@@ -72,6 +61,12 @@ function logout() {
   localStorage.removeItem("user");
   location.reload();
 }
+
+window.onload = function () {
+  loadUser();
+  renderServices();
+  renderVolunteerSchedules();
+};
 
 function addService() {
   console.log("addService fired");
