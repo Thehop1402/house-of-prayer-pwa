@@ -1,3 +1,5 @@
+alert("app.js loaded");
+
 function showTab(tabId) {
   document.querySelectorAll(".tab").forEach(t => t.style.display = "none");
   document.getElementById(tabId).style.display = "block";
