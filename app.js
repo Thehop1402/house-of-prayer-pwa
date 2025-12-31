@@ -331,6 +331,8 @@ function createGroup() {
   const groups = getGroups();
   const user = JSON.parse(localStorage.getItem("user"));
   const unread = getUnread();
+    
+console.log("UNREAD:", JSON.parse(localStorage.getItem("unread")));
 
   list.innerHTML = "";
 
