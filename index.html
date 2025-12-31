@@ -115,29 +115,24 @@ OneSignal.push(function() {
   </div>
 </div>
 
-  <!-- VOLUNTEERS -->
-  <div id="volunteer-tab" class="tab" style="display:none;">
-    <h2>🤝 Volunteers</h2>
+ <!-- VOLUNTEERS -->
+<div id="volunteer-tab" class="tab" style="display:none;">
+  <h2>🤝 Volunteers</h2>
 
-    <div class="admin-only">
-      <h4>🧹 Cleaning</h4>
-      <textarea id="cleaningInput"></textarea>
-      <button onclick="saveCleaning()">Save</button>
+  <!-- MEMBER VIEW -->
+  <section>
+    <h3>🧹 Cleaning Schedule</h3>
+    <div id="cleaningDisplay">No schedule posted</div>
 
-      <h4>🛎 Usher</h4>
-      <textarea id="usherInput"></textarea>
-      <button onclick="saveUsher()">Save</button>
-    </div>
+    <h3>🛎 Usher Schedule</h3>
+    <div id="usherDisplay">No schedule posted</div>
+  </section>
 
-    <h4>🧹 Cleaning Schedule</h4>
-    <div id="cleaningDisplay"></div>
+  <hr />
 
-    <h4>🛎 Usher Schedule</h4>
-    <div id="usherDisplay"></div>
-
-    <hr />
-
-    <h3>📆 Availability</h3>
+  <!-- AVAILABILITY (ALL USERS) -->
+  <section>
+    <h3>📆 My Availability</h3>
 
     <div id="calendar-controls">
       <button onclick="prevMonth()">◀</button>
@@ -148,13 +143,30 @@ OneSignal.push(function() {
     <div id="calendar"></div>
 
     <button onclick="saveCalendarAvailability()">Save Availability</button>
-    <div id="myCalendarAvailability"></div>
 
-    <div class="admin-only">
-      <h3>Admin View</h3>
-      <div id="allCalendarAvailability"></div>
-    </div>
-  </div>
+    <p><strong>My Selected Dates:</strong></p>
+    <div id="myCalendarAvailability"></div>
+  </section>
+
+  <!-- ADMIN ONLY -->
+  <section class="admin-only">
+    <hr />
+    <h3>🛠 Admin: Manage Schedules</h3>
+
+    <h4>🧹 Edit Cleaning Schedule</h4>
+    <textarea id="cleaningInput" placeholder="Enter cleaning schedule"></textarea>
+    <button onclick="saveCleaning()">Save Cleaning</button>
+
+    <h4>🛎 Edit Usher Schedule</h4>
+    <textarea id="usherInput" placeholder="Enter usher schedule"></textarea>
+    <button onclick="saveUsher()">Save Usher</button>
+
+    <hr />
+
+    <h3>👥 Volunteer Availability (All Users)</h3>
+    <div id="allCalendarAvailability"></div>
+  </section>
+</div>
 
   <!-- BIBLE -->
   <div id="bible-tab" class="tab" style="display:none;">
