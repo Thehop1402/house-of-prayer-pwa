@@ -377,7 +377,7 @@ function openChat(group) {
   currentGroup = group;
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const unread = getUnread();
+  let unread = getUnread();
 
   if (unread[user.email]) {
     unread[user.email][group] = 0;
