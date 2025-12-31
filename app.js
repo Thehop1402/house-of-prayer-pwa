@@ -38,7 +38,14 @@ function login() {
 function loadUser() {
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) return;
-
+  
+ // 🔴 INIT unread tracking for this user
+  let unread = JSON.parse(localStorage.getItem("unread")) || {};
+  if (!unread[user.email]) {
+    unread[user.email] = {};
+    localStorage.setItem("unread", JSON.stringify(unread));
+  }
+  
   document.getElementById("auth-screen").style.display = "none";
   document.getElementById("app-screen").style.display = "block";
 
@@ -401,6 +408,7 @@ function sendMessage() {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const groups = getGroups();
+  const unread = getUnread();
 
   groups[currentGroup].push({
     user: user.name,
@@ -409,19 +417,18 @@ function sendMessage() {
     time: new Date().toLocaleTimeString()
   });
 
-  saveGroups(groups);
-  input.value = "";
-
-  // 🔴 increment unread for OTHER users
-  const unread = getUnread();
+  // 🔴 increment unread for everyone except sender
   Object.keys(unread).forEach(email => {
     if (email !== user.email) {
       unread[email][currentGroup] =
         (unread[email][currentGroup] || 0) + 1;
     }
   });
+
+  saveGroups(groups);
   saveUnread(unread);
 
+  input.value = "";
   renderMessages();
   renderGroups();
 }
