@@ -10,6 +10,9 @@ function showTab(tabId) {
 if (tabId === "messages-tab") {
   renderGroups();
 }
+if (tabId === "media-tab") {
+  // later we can load streams dynamically
+}
 
 // PWA install support
 if ('serviceWorker' in navigator) {
