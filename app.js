@@ -338,10 +338,16 @@ function createGroup() {
     const count = unread[user.email]?.[group] || 0;
 
     const li = document.createElement("li");
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    li.style.padding = "8px";
+    li.style.cursor = "pointer";
+
     li.innerHTML = `
       <span onclick="openChat('${group}')">
         ${group}
-        ${count > 0 ? `<strong style="color:red;"> 🔴 ${count}</strong>` : ""}
+        ${count > 0 ? `<span class="badge">${count}</span>` : ""}
       </span>
       ${
         user.role === "admin"
@@ -349,6 +355,7 @@ function createGroup() {
           : ""
       }
     `;
+
     list.appendChild(li);
   });
 }
