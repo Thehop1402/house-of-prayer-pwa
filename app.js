@@ -23,35 +23,43 @@ if ('serviceWorker' in navigator) {
 }
 
 function login() {
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
   const role = document.getElementById("role").value;
 
   if (!name || !email) {
-    alert("Please enter your name and email");
+    alert("Please enter name and email");
     return;
   }
 
-  const user = { name, email, role };
-  localStorage.setItem("user", JSON.stringify(user));
+  const user = {
+    name,
+    email,
+    role
+  };
 
+  localStorage.setItem("user", JSON.stringify(user));
   loadUser();
-  renderVolunteerSchedules(); // 🔑 THIS WAS MISSING
 }
 
 function loadUser() {
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) return;
 
+  // hide login
   document.getElementById("auth-screen").style.display = "none";
+
+  // show app
   document.getElementById("app-screen").style.display = "block";
 
-  // Reset admin state first
+  // apply admin role
   document.body.classList.remove("admin");
-
   if (user.role === "admin") {
     document.body.classList.add("admin");
   }
+
+  console.log("Logged in as:", user);
+}
 
   // 🔑 ALWAYS render shared content
 renderVolunteerSchedules();
@@ -63,7 +71,6 @@ renderAdminCalendar();
 
 function logout() {
   localStorage.removeItem("user");
-  document.body.classList.remove("admin");
   location.reload();
 }
 
