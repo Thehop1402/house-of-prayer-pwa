@@ -13,6 +13,9 @@ if (tabId === "messages-tab") {
 if (tabId === "media-tab") {
   // later we can load streams dynamically
 }
+if (tabId === "messages-tab") {
+  renderGroups();
+}
 
 // PWA install support
 if ('serviceWorker' in navigator) {
@@ -296,4 +299,101 @@ function renderProfile() {
   document.getElementById("profileName").innerText = user.name;
   document.getElementById("profileEmail").innerText = user.email;
   document.getElementById("profileRole").innerText = user.role;
+}
+  
+function getGroups() {
+  return JSON.parse(localStorage.getItem("groups")) || {};
+}
+
+function saveGroups(groups) {
+  localStorage.setItem("groups", JSON.stringify(groups));
+}
+  
+function createGroup() {
+  const name = document.getElementById("groupName").value.trim();
+  if (!name) return alert("Enter group name");
+
+  const groups = getGroups();
+  if (groups[name]) return alert("Group already exists");
+
+  groups[name] = [];
+  saveGroups(groups);
+  document.getElementById("groupName").value = "";
+  renderGroups();
+}
+
+  function renderGroups() {
+  const list = document.getElementById("groupList");
+  if (!list) return;
+
+  const groups = getGroups();
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  list.innerHTML = "";
+
+  Object.keys(groups).forEach(group => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span onclick="openChat('${group}')">${group}</span>
+      ${
+        user.role === "admin"
+          ? `<button onclick="deleteGroup('${group}')">❌</button>`
+          : ""
+      }
+    `;
+    list.appendChild(li);
+  });
+}
+
+function deleteGroup(group) {
+  if (!confirm("Delete this group?")) return;
+
+  const groups = getGroups();
+  delete groups[group];
+  saveGroups(groups);
+  renderGroups();
+}
+
+let currentGroup = null;
+
+function openChat(group) {
+  currentGroup = group;
+  document.getElementById("chatSection").style.display = "block";
+  document.getElementById("chatTitle").innerText = group;
+  renderMessages();
+}
+
+function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if (!text || !currentGroup) return;
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const groups = getGroups();
+
+  groups[currentGroup].push({
+    user: user.name,
+    text,
+    time: new Date().toLocaleTimeString()
+  });
+
+  saveGroups(groups);
+  input.value = "";
+  renderMessages();
+}
+
+function renderMessages() {
+  const box = document.getElementById("chatMessages");
+  const groups = getGroups();
+
+  box.innerHTML = "";
+
+  groups[currentGroup].forEach(msg => {
+    const div = document.createElement("div");
+    div.innerHTML = `<strong>${msg.user}</strong>: ${msg.text}
+      <small>(${msg.time})</small>`;
+    box.appendChild(div);
+  });
+
+  box.scrollTop = box.scrollHeight;
 }
