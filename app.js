@@ -13,9 +13,6 @@ if (tabId === "messages-tab") {
 if (tabId === "media-tab") {
   // later we can load streams dynamically
 }
-if (tabId === "messages-tab") {
-  renderGroups();
-}
 
 // PWA install support
 if ('serviceWorker' in navigator) {
@@ -58,27 +55,21 @@ function loadUser() {
     document.body.classList.add("admin");
   }
 
-  console.log("Logged in as:", user);
-}
-
-  // 🔑 ALWAYS render shared content
-renderVolunteerSchedules();
-renderCalendar();
-renderCalendarSummary();
-renderAdminCalendar();
+  // render app content AFTER login
+  renderServices();
+  renderVolunteerSchedules();
+  renderCalendar();
+  renderCalendarSummary();
+  renderAdminCalendar();
   renderProfile();
+
+  console.log("Logged in as:", user);
 }
 
 function logout() {
   localStorage.removeItem("user");
   location.reload();
 }
-
-window.onload = function () {
-  loadUser();
-  renderServices();
-  renderVolunteerSchedules();
-};
 
 function addService() {
   console.log("addService fired");
